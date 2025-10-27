@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SmartQuiz - Logical Reasoning</title>
   <style>
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       background: #eef2f3;
       margin: 0;
     }
@@ -33,7 +33,7 @@
       background: #fff;
       padding: 40px;
       border-radius: 16px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     .question {
       margin-bottom: 35px;
@@ -79,39 +79,38 @@
 
   <main>
     <form id="quizForm">
-
       <div class="question">
         <p>1️⃣ How many boxes are there in the given figure?</p>
-        <img src="https://i.imgur.com/5s5iTQz.png" alt="Box puzzle">
-        <label><input type="radio" name="q1" value="8"> 8</label>
-        <label><input type="radio" name="q1" value="9"> 9</label>
-        <label><input type="radio" name="q1" value="10"> 10</label>
-        <label><input type="radio" name="q1" value="11"> 11</label>
+        <img src="https://i.imgur.com/5s5iTQz.png" alt="Box puzzle" />
+        <label><input type="radio" name="q1" value="8" /> 8</label>
+        <label><input type="radio" name="q1" value="9" /> 9</label>
+        <label><input type="radio" name="q1" value="10" /> 10</label>
+        <label><input type="radio" name="q1" value="11" /> 11</label>
       </div>
 
       <div class="question">
         <p>2️⃣ Find the missing number in the series: 2, 6, 12, 20, ?</p>
-        <label><input type="radio" name="q2" value="28"> 28</label>
-        <label><input type="radio" name="q2" value="30"> 30</label>
-        <label><input type="radio" name="q2" value="32"> 32</label>
-        <label><input type="radio" name="q2" value="36"> 36</label>
+        <label><input type="radio" name="q2" value="28" /> 28</label>
+        <label><input type="radio" name="q2" value="30" /> 30</label>
+        <label><input type="radio" name="q2" value="32" /> 32</label>
+        <label><input type="radio" name="q2" value="36" /> 36</label>
       </div>
 
       <div class="question">
         <p>3️⃣ Which shape will complete the pattern?</p>
-        <img src="https://i.imgur.com/dUo7CeA.png" alt="Pattern puzzle">
-        <label><input type="radio" name="q3" value="A"> A</label>
-        <label><input type="radio" name="q3" value="B"> B</label>
-        <label><input type="radio" name="q3" value="C"> C</label>
-        <label><input type="radio" name="q3" value="D"> D</label>
+        <img src="https://i.imgur.com/dUo7CeA.png" alt="Pattern puzzle" />
+        <label><input type="radio" name="q3" value="A" /> A</label>
+        <label><input type="radio" name="q3" value="B" /> B</label>
+        <label><input type="radio" name="q3" value="C" /> C</label>
+        <label><input type="radio" name="q3" value="D" /> D</label>
       </div>
 
       <div class="question">
         <p>4️⃣ A clock shows 3:15. What is the angle between the hour and minute hands?</p>
-        <label><input type="radio" name="q4" value="37.5"> 37.5°</label>
-        <label><input type="radio" name="q4" value="45"> 45°</label>
-        <label><input type="radio" name="q4" value="52.5"> 52.5°</label>
-        <label><input type="radio" name="q4" value="60"> 60°</label>
+        <label><input type="radio" name="q4" value="37.5" /> 37.5°</label>
+        <label><input type="radio" name="q4" value="45" /> 45°</label>
+        <label><input type="radio" name="q4" value="52.5" /> 52.5°</label>
+        <label><input type="radio" name="q4" value="60" /> 60°</label>
       </div>
 
       <button type="submit">Submit Quiz</button>
@@ -121,10 +120,9 @@
   <script>
     const scriptURL = "YOUR_GOOGLE_SCRIPT_WEBAPP_URL"; // Replace this
 
-    // 1 hour timer
+    // 1-hour timer
     let totalSeconds = 3600;
     const timer = document.getElementById("timer");
-
     const interval = setInterval(() => {
       totalSeconds--;
       let mins = Math.floor(totalSeconds / 60);
@@ -136,29 +134,14 @@
       }
     }, 1000);
 
-    document.getElementById("quizForm").addEventListener("submit", function(e) {
+    document.getElementById("quizForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const answers = {
-        q1: "9",   // Correct answer for boxes puzzle
-        q2: "30",  // +4, +6, +8, +10 pattern
-        q3: "C",   // Assuming C is correct shape
-        q4: "7.5"  // angle = 7.5 but use as logic below
-      };
-
       let score = 0;
-
-      const selectedQ1 = document.querySelector(`input[name="q1"]:checked`);
-      if (selectedQ1 && selectedQ1.value === "9") score++;
-
-      const selectedQ2 = document.querySelector(`input[name="q2"]:checked`);
-      if (selectedQ2 && selectedQ2.value === "30") score++;
-
-      const selectedQ3 = document.querySelector(`input[name="q3"]:checked`);
-      if (selectedQ3 && selectedQ3.value === "C") score++;
-
-      const selectedQ4 = document.querySelector(`input[name="q4"]:checked`);
-      if (selectedQ4 && selectedQ4.value === "7.5" || selectedQ4 && selectedQ4.value === "37.5") score++;
+      if (document.querySelector('input[name="q1"]:checked')?.value === "9") score++;
+      if (document.querySelector('input[name="q2"]:checked')?.value === "30") score++;
+      if (document.querySelector('input[name="q3"]:checked')?.value === "C") score++;
+      if (document.querySelector('input[name="q4"]:checked')?.value === "37.5") score++;
 
       localStorage.setItem("quizScore", score);
       window.location.href = "feedback.html";
