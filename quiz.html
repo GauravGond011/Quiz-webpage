@@ -119,7 +119,26 @@
   </main>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbx8nJZabeiBKqeIhZ4yqO-QvuJ0rW--ltQdMLdSy_Cm2_fwaTLFUldxqyVuJGVirkD-/exec"; // Replace with your Google Script Web App URL
+const scriptURL = "https://script.google.com/macros/s/AKfycbx8nJZabeiBKqeIhZ4yqO-QvuJ0rW--ltQdMLdSy_Cm2_fwaTLFUldxqyVuJGVirkD-/exec";
+
+function submitQuiz(e) {
+  e.preventDefault();
+
+  const score = calculateScore(); // however you calculate it
+  const formData = new FormData();
+  formData.append("user", localStorage.getItem("user") || "Anonymous");
+  formData.append("score", score);
+  formData.append("timestamp", new Date().toLocaleString());
+
+  fetch(scriptURL, { method: 'POST', body: formData })
+    .then(res => res.text())
+    .then(() => {
+      window.location.href = "feedback.html";
+    })
+    .catch(err => {
+      alert("Error submitting your quiz: " + err);
+    });
+}
 
     let totalSeconds = 3600;
     const timer = document.getElementById("timer");
