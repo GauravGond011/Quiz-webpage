@@ -2,40 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz Feedback</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Feedback</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 50px; }
+    textarea { width: 300px; height: 100px; }
+  </style>
 </head>
 <body>
-  <div class="quiz-container">
-    <h1>Thank You for Completing the Quiz!</h1>
-    <p id="userDetails"></p>
+  <h2>Thank You!</h2>
+  <p>Your quiz has been submitted successfully.</p>
 
-    <h3>We’d love your feedback 😊</h3>
-    <form id="feedbackForm">
-      <textarea id="feedback" rows="4" cols="50" placeholder="Write your feedback here..." required></textarea><br>
-      <button type="submit">Submit Feedback</button>
-    </form>
-
-    <p id="feedbackResponse"></p>
-    <br>
-    <a href="index.html">⬅️ Go Back to Home</a>
-  </div>
+  <form id="feedbackForm">
+    <p>Please share your feedback:</p>
+    <textarea id="feedback" placeholder="Enter your feedback..."></textarea><br><br>
+    <button type="submit">Submit Feedback</button>
+  </form>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get("name");
-    const score = params.get("score");
+    const scriptURL = "YOUR_GOOGLE_SCRIPT_WEBAPP_URL"; // Same URL as before
 
-    document.getElementById("userDetails").textContent = `${name}, you scored ${score} points!`;
-
-    document.getElementById("feedbackForm").addEventListener("submit", e => {
+    document.getElementById("feedbackForm").addEventListener("submit", function(e) {
       e.preventDefault();
-      const feedback = document.getElementById("feedback").value;
-      document.getElementById("feedbackResponse").textContent = "Thanks for your feedback!";
-      
-      // Optional: Send to Google Sheet or API
-      console.log({ name, feedback });
+
+      fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: localStorage.getItem("userName"),
+          email: localStorage.getItem("userEmail"),
+          score: localStorage.getItem("quizScore"),
+          feedback: document.getElementById("feedback").value
+        })
+      });
+
+      alert("Thank you for your feedback!");
+      localStorage.clear();
+      window.location.href = "index.html";
     });
   </script>
 </body>
