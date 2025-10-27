@@ -2,44 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartQuiz - Quiz</title>
   <style>
-    body { font-family: Arial; padding: 30px; max-width: 600px; margin: auto; }
-    #timer { font-weight: bold; color: red; float: right; }
-    .question { margin-bottom: 20px; }
-    button { padding: 8px 16px; font-size: 15px; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #eef2f3;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #003366;
+      color: #fff;
+      padding: 15px 20px;
+      text-align: center;
+    }
+    #timer {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      font-weight: bold;
+      border-radius: 6px;
+      float: right;
+      margin-right: 20px;
+    }
+    main {
+      max-width: 700px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 25px;
+    }
+    p {
+      font-size: 17px;
+      font-weight: 500;
+    }
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+    button {
+      background: #003366;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #0059b3;
+    }
   </style>
 </head>
 <body>
-  <h2>Quiz</h2>
-  <div id="timer">Time left: 60:00</div>
+  <header>
+    <h2>SmartQuiz</h2>
+    <div id="timer">Time left: 60:00</div>
+  </header>
 
-  <form id="quizForm">
-    <div class="question">
-      <p>1. What is 2 + 2?</p>
-      <label><input type="radio" name="q1" value="3"> 3</label><br>
-      <label><input type="radio" name="q1" value="4"> 4</label><br>
-      <label><input type="radio" name="q1" value="5"> 5</label>
-    </div>
+  <main>
+    <form id="quizForm">
+      <div class="question">
+        <p>1. What is 2 + 2?</p>
+        <label><input type="radio" name="q1" value="3"> 3</label>
+        <label><input type="radio" name="q1" value="4"> 4</label>
+        <label><input type="radio" name="q1" value="5"> 5</label>
+      </div>
 
-    <div class="question">
-      <p>2. What is the capital of France?</p>
-      <label><input type="radio" name="q2" value="Berlin"> Berlin</label><br>
-      <label><input type="radio" name="q2" value="Paris"> Paris</label><br>
-      <label><input type="radio" name="q2" value="London"> London</label>
-    </div>
+      <div class="question">
+        <p>2. What is the capital of France?</p>
+        <label><input type="radio" name="q2" value="Berlin"> Berlin</label>
+        <label><input type="radio" name="q2" value="Paris"> Paris</label>
+        <label><input type="radio" name="q2" value="London"> London</label>
+      </div>
 
-    <div class="question">
-      <p>3. Which planet is known as the Red Planet?</p>
-      <label><input type="radio" name="q3" value="Mars"> Mars</label><br>
-      <label><input type="radio" name="q3" value="Jupiter"> Jupiter</label><br>
-      <label><input type="radio" name="q3" value="Venus"> Venus</label>
-    </div>
+      <div class="question">
+        <p>3. Which planet is known as the Red Planet?</p>
+        <label><input type="radio" name="q3" value="Mars"> Mars</label>
+        <label><input type="radio" name="q3" value="Jupiter"> Jupiter</label>
+        <label><input type="radio" name="q3" value="Venus"> Venus</label>
+      </div>
 
-    <button type="submit">Submit Quiz</button>
-  </form>
+      <button type="submit">Submit Quiz</button>
+    </form>
+  </main>
 
   <script>
+    const scriptURL = "YOUR_GOOGLE_SCRIPT_WEBAPP_URL"; // Replace this!
+
     // Timer (1 hour)
     let totalSeconds = 3600;
     const timer = document.getElementById("timer");
@@ -55,12 +110,8 @@
       }
     }, 1000);
 
-    // Submit Quiz
-    const scriptURL = "YOUR_GOOGLE_SCRIPT_WEBAPP_URL"; // Replace with your URL!
-
     document.getElementById("quizForm").addEventListener("submit", function(e) {
       e.preventDefault();
-
       const answers = { q1: "4", q2: "Paris", q3: "Mars" };
       let score = 0;
 
