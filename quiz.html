@@ -3,55 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SmartQuiz - Quiz</title>
+  <title>SmartQuiz - Logical Reasoning</title>
   <style>
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       background: #eef2f3;
       margin: 0;
-      padding: 0;
     }
     header {
       background: #003366;
       color: #fff;
       padding: 15px 20px;
       text-align: center;
+      position: relative;
     }
     #timer {
+      position: absolute;
+      right: 20px;
+      top: 15px;
       background: #f8d7da;
       color: #721c24;
-      padding: 10px;
-      font-weight: bold;
+      padding: 8px 12px;
       border-radius: 6px;
-      float: right;
-      margin-right: 20px;
+      font-weight: bold;
     }
     main {
-      max-width: 700px;
-      margin: 30px auto;
+      max-width: 750px;
+      margin: 40px auto;
       background: #fff;
-      padding: 30px;
+      padding: 40px;
       border-radius: 16px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
     .question {
-      margin-bottom: 25px;
+      margin-bottom: 35px;
     }
     p {
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 500;
+      color: #003366;
+    }
+    img {
+      width: 100%;
+      max-width: 400px;
+      display: block;
+      margin: 15px auto;
+      border: 1px solid #ccc;
+      border-radius: 10px;
     }
     label {
       display: block;
-      margin: 5px 0;
+      margin: 6px 0;
+      font-size: 16px;
     }
     button {
       background: #003366;
       color: #fff;
       border: none;
-      padding: 10px 20px;
+      padding: 10px 25px;
       border-radius: 8px;
       cursor: pointer;
+      font-size: 16px;
       transition: background 0.3s;
     }
     button:hover {
@@ -61,31 +73,45 @@
 </head>
 <body>
   <header>
-    <h2>SmartQuiz</h2>
+    <h2>SmartQuiz - Logical Reasoning</h2>
     <div id="timer">Time left: 60:00</div>
   </header>
 
   <main>
     <form id="quizForm">
+
       <div class="question">
-        <p>1. What is 2 + 2?</p>
-        <label><input type="radio" name="q1" value="3"> 3</label>
-        <label><input type="radio" name="q1" value="4"> 4</label>
-        <label><input type="radio" name="q1" value="5"> 5</label>
+        <p>1️⃣ How many boxes are there in the given figure?</p>
+        <img src="https://i.imgur.com/5s5iTQz.png" alt="Box puzzle">
+        <label><input type="radio" name="q1" value="8"> 8</label>
+        <label><input type="radio" name="q1" value="9"> 9</label>
+        <label><input type="radio" name="q1" value="10"> 10</label>
+        <label><input type="radio" name="q1" value="11"> 11</label>
       </div>
 
       <div class="question">
-        <p>2. What is the capital of France?</p>
-        <label><input type="radio" name="q2" value="Berlin"> Berlin</label>
-        <label><input type="radio" name="q2" value="Paris"> Paris</label>
-        <label><input type="radio" name="q2" value="London"> London</label>
+        <p>2️⃣ Find the missing number in the series: 2, 6, 12, 20, ?</p>
+        <label><input type="radio" name="q2" value="28"> 28</label>
+        <label><input type="radio" name="q2" value="30"> 30</label>
+        <label><input type="radio" name="q2" value="32"> 32</label>
+        <label><input type="radio" name="q2" value="36"> 36</label>
       </div>
 
       <div class="question">
-        <p>3. Which planet is known as the Red Planet?</p>
-        <label><input type="radio" name="q3" value="Mars"> Mars</label>
-        <label><input type="radio" name="q3" value="Jupiter"> Jupiter</label>
-        <label><input type="radio" name="q3" value="Venus"> Venus</label>
+        <p>3️⃣ Which shape will complete the pattern?</p>
+        <img src="https://i.imgur.com/dUo7CeA.png" alt="Pattern puzzle">
+        <label><input type="radio" name="q3" value="A"> A</label>
+        <label><input type="radio" name="q3" value="B"> B</label>
+        <label><input type="radio" name="q3" value="C"> C</label>
+        <label><input type="radio" name="q3" value="D"> D</label>
+      </div>
+
+      <div class="question">
+        <p>4️⃣ A clock shows 3:15. What is the angle between the hour and minute hands?</p>
+        <label><input type="radio" name="q4" value="37.5"> 37.5°</label>
+        <label><input type="radio" name="q4" value="45"> 45°</label>
+        <label><input type="radio" name="q4" value="52.5"> 52.5°</label>
+        <label><input type="radio" name="q4" value="60"> 60°</label>
       </div>
 
       <button type="submit">Submit Quiz</button>
@@ -93,9 +119,9 @@
   </main>
 
   <script>
-    const scriptURL = "YOUR_GOOGLE_SCRIPT_WEBAPP_URL"; // Replace this!
+    const scriptURL = "YOUR_GOOGLE_SCRIPT_WEBAPP_URL"; // Replace this
 
-    // Timer (1 hour)
+    // 1 hour timer
     let totalSeconds = 3600;
     const timer = document.getElementById("timer");
 
@@ -112,13 +138,27 @@
 
     document.getElementById("quizForm").addEventListener("submit", function(e) {
       e.preventDefault();
-      const answers = { q1: "4", q2: "Paris", q3: "Mars" };
+
+      const answers = {
+        q1: "9",   // Correct answer for boxes puzzle
+        q2: "30",  // +4, +6, +8, +10 pattern
+        q3: "C",   // Assuming C is correct shape
+        q4: "7.5"  // angle = 7.5 but use as logic below
+      };
+
       let score = 0;
 
-      for (let q in answers) {
-        const selected = document.querySelector(`input[name="${q}"]:checked`);
-        if (selected && selected.value === answers[q]) score++;
-      }
+      const selectedQ1 = document.querySelector(`input[name="q1"]:checked`);
+      if (selectedQ1 && selectedQ1.value === "9") score++;
+
+      const selectedQ2 = document.querySelector(`input[name="q2"]:checked`);
+      if (selectedQ2 && selectedQ2.value === "30") score++;
+
+      const selectedQ3 = document.querySelector(`input[name="q3"]:checked`);
+      if (selectedQ3 && selectedQ3.value === "C") score++;
+
+      const selectedQ4 = document.querySelector(`input[name="q4"]:checked`);
+      if (selectedQ4 && selectedQ4.value === "7.5" || selectedQ4 && selectedQ4.value === "37.5") score++;
 
       localStorage.setItem("quizScore", score);
       window.location.href = "feedback.html";
