@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SmartQuiz Feedback</title>
   <style>
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       background: linear-gradient(135deg, #c3cfe2, #f5f7fa);
       margin: 0;
-      padding: 0;
     }
     main {
       max-width: 600px;
@@ -17,7 +16,7 @@
       background: #fff;
       padding: 40px;
       border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
     textarea {
@@ -50,27 +49,27 @@
     <p>We value your feedback. Please share your thoughts below:</p>
 
     <form id="feedbackForm">
-      <textarea id="feedback" placeholder="Enter your feedback..."></textarea><br>
+      <textarea id="feedback" placeholder="Enter your feedback..."></textarea><br />
       <button type="submit">Submit Feedback</button>
     </form>
   </main>
 
   <script>
-    const scriptURL = "YOUR_GOOGLE_SCRIPT_WEBAPP_URL"; // same as before
+    const scriptURL = "YOUR_GOOGLE_SCRIPT_WEBAPP_URL"; // same URL as in quiz.html
 
-    document.getElementById("feedbackForm").addEventListener("submit", function(e) {
+    document.getElementById("feedbackForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
       fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: localStorage.getItem("userName"),
           email: localStorage.getItem("userEmail"),
           score: localStorage.getItem("quizScore"),
-          feedback: document.getElementById("feedback").value
-        })
+          feedback: document.getElementById("feedback").value,
+        }),
       });
 
       alert("Thank you for your feedback!");
