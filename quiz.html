@@ -79,7 +79,6 @@
 
   <main>
     <form id="quizForm">
-      <!-- Question 1 -->
       <div class="question">
         <p>1️⃣ How many boxes are there in the figure?</p>
         <img src="https://raw.githubusercontent.com/mdn/content/main/files/en-us/learn/css/building_blocks/box_model_diagram_2.png" alt="Box Puzzle" />
@@ -89,7 +88,6 @@
         <label><input type="radio" name="q1" value="10" /> 10</label>
       </div>
 
-      <!-- Question 2 -->
       <div class="question">
         <p>2️⃣ Find the missing number in the series: 2, 6, 12, 20, ?</p>
         <label><input type="radio" name="q2" value="28" /> 28</label>
@@ -98,7 +96,6 @@
         <label><input type="radio" name="q2" value="36" /> 36</label>
       </div>
 
-      <!-- Question 3 -->
       <div class="question">
         <p>3️⃣ Which shape will complete the pattern?</p>
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Pattern_blocks_shapes.svg" alt="Pattern Puzzle" />
@@ -108,7 +105,6 @@
         <label><input type="radio" name="q3" value="D" /> D</label>
       </div>
 
-      <!-- Question 4 -->
       <div class="question">
         <p>4️⃣ A clock shows 3:15. What is the angle between the hour and minute hands?</p>
         <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Analog_clock_face.svg" alt="Clock Puzzle" />
@@ -123,9 +119,8 @@
   </main>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbx8nJZabeiBKqeIhZ4yqO-QvuJ0rW--ltQdMLdSy_Cm2_fwaTLFUldxqyVuJGVirkD-/exec"; // Replace with your own Google Apps Script Web App URL
+    const scriptURL = "https://script.google.com/macros/s/AKfycbx8nJZabeiBKqeIhZ4yqO-QvuJ0rW--ltQdMLdSy_Cm2_fwaTLFUldxqyVuJGVirkD-/exec"; // Replace with your Google Script Web App URL
 
-    // Timer: 1 hour
     let totalSeconds = 3600;
     const timer = document.getElementById("timer");
 
@@ -155,10 +150,10 @@
       if (selected.q3 === "C") score++;
       if (selected.q4 === "37.5") score++;
 
-      // Store results to Google Sheet
+      const name = prompt("Enter your name:");
       const data = new FormData();
       data.append("timestamp", new Date().toLocaleString());
-      data.append("user", prompt("Enter your name:"));
+      data.append("user", name);
       data.append("score", score);
 
       fetch(scriptURL, { method: "POST", body: data })
