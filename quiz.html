@@ -79,15 +79,17 @@
 
   <main>
     <form id="quizForm">
+      <!-- Question 1 -->
       <div class="question">
-        <p>1️⃣ How many boxes are there in the given figure?</p>
-        <img src="https://i.imgur.com/5s5iTQz.png" alt="Box puzzle" />
+        <p>1️⃣ How many boxes are there in the figure?</p>
+        <img src="https://raw.githubusercontent.com/mdn/content/main/files/en-us/learn/css/building_blocks/box_model_diagram_2.png" alt="Box Puzzle" />
+        <label><input type="radio" name="q1" value="6" /> 6</label>
         <label><input type="radio" name="q1" value="8" /> 8</label>
         <label><input type="radio" name="q1" value="9" /> 9</label>
         <label><input type="radio" name="q1" value="10" /> 10</label>
-        <label><input type="radio" name="q1" value="11" /> 11</label>
       </div>
 
+      <!-- Question 2 -->
       <div class="question">
         <p>2️⃣ Find the missing number in the series: 2, 6, 12, 20, ?</p>
         <label><input type="radio" name="q2" value="28" /> 28</label>
@@ -96,17 +98,20 @@
         <label><input type="radio" name="q2" value="36" /> 36</label>
       </div>
 
+      <!-- Question 3 -->
       <div class="question">
         <p>3️⃣ Which shape will complete the pattern?</p>
-        <img src="https://i.imgur.com/dUo7CeA.png" alt="Pattern puzzle" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Pattern_blocks_shapes.svg" alt="Pattern Puzzle" />
         <label><input type="radio" name="q3" value="A" /> A</label>
         <label><input type="radio" name="q3" value="B" /> B</label>
         <label><input type="radio" name="q3" value="C" /> C</label>
         <label><input type="radio" name="q3" value="D" /> D</label>
       </div>
 
+      <!-- Question 4 -->
       <div class="question">
         <p>4️⃣ A clock shows 3:15. What is the angle between the hour and minute hands?</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Analog_clock_face.svg" alt="Clock Puzzle" />
         <label><input type="radio" name="q4" value="37.5" /> 37.5°</label>
         <label><input type="radio" name="q4" value="45" /> 45°</label>
         <label><input type="radio" name="q4" value="52.5" /> 52.5°</label>
@@ -118,11 +123,12 @@
   </main>
 
   <script>
-    const scriptURL = "YOUR_GOOGLE_SCRIPT_WEBAPP_URL"; // Replace this
+    const scriptURL = "YOUR_GOOGLE_SCRIPT_WEBAPP_URL"; // Replace with your own Google Apps Script Web App URL
 
-    // 1-hour timer
+    // Timer: 1 hour
     let totalSeconds = 3600;
     const timer = document.getElementById("timer");
+
     const interval = setInterval(() => {
       totalSeconds--;
       let mins = Math.floor(totalSeconds / 60);
@@ -137,14 +143,27 @@
     document.getElementById("quizForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      let score = 0;
-      if (document.querySelector('input[name="q1"]:checked')?.value === "9") score++;
-      if (document.querySelector('input[name="q2"]:checked')?.value === "30") score++;
-      if (document.querySelector('input[name="q3"]:checked')?.value === "C") score++;
-      if (document.querySelector('input[name="q4"]:checked')?.value === "37.5") score++;
+      const selected = {};
+      ["q1", "q2", "q3", "q4"].forEach((q) => {
+        const ans = document.querySelector(`input[name="${q}"]:checked`);
+        selected[q] = ans ? ans.value : "";
+      });
 
-      localStorage.setItem("quizScore", score);
-      window.location.href = "feedback.html";
+      let score = 0;
+      if (selected.q1 === "9") score++;
+      if (selected.q2 === "30") score++;
+      if (selected.q3 === "C") score++;
+      if (selected.q4 === "37.5") score++;
+
+      // Store results to Google Sheet
+      const data = new FormData();
+      data.append("timestamp", new Date().toLocaleString());
+      data.append("user", prompt("Enter your name:"));
+      data.append("score", score);
+
+      fetch(scriptURL, { method: "POST", body: data })
+        .then(() => (window.location.href = "feedback.html"))
+        .catch((err) => alert("Error submitting your quiz: " + err));
     });
   </script>
 </body>
