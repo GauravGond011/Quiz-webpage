@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz App</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Quiz Home</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 50px; }
+    input, button { padding: 10px; margin: 8px; font-size: 16px; }
+  </style>
 </head>
 <body>
-  <div class="quiz-container" id="user-info">
-    <h1>Welcome to the Quiz</h1>
-    <p>Please enter your details before starting:</p>
-    <input type="text" id="name" placeholder="Your Name" required />
-    <input type="email" id="email" placeholder="Your Email" required />
-    <button id="startQuiz">Start Quiz</button>
-  </div>
+  <h1>Welcome to the Quiz</h1>
+  <p>Enter your details to start:</p>
 
-  <div class="quiz-container" id="quiz-section" style="display:none;">
-    <div id="timer">Time Remaining: 60:00</div>
-    <h2>General Knowledge Quiz</h2>
-    <div id="quiz"></div>
-    <button id="submit">Submit Quiz</button>
-    <p id="result"></p>
-  </div>
+  <form id="userForm">
+    <input type="text" id="name" placeholder="Your Name" required><br>
+    <input type="email" id="email" placeholder="Your Email" required><br>
+    <button type="submit">Start Quiz</button>
+  </form>
 
-  <script src="script.js"></script>
+  <script>
+    document.getElementById("userForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      localStorage.setItem("userName", document.getElementById("name").value);
+      localStorage.setItem("userEmail", document.getElementById("email").value);
+      window.location.href = "quiz.html";
+    });
+  </script>
 </body>
 </html>
