@@ -156,7 +156,6 @@
       formData.append("timestamp", new Date().toLocaleString());
       formData.append("user", name);
       formData.append("score", score);
-      formData.append("feedback", feedback);
 
       try {
         const response = await fetch(scriptURL, { method: "POST", body: formData, mode: "no-cors" });
